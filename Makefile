@@ -8,7 +8,7 @@ OBJ = $(SRC:.c=.o)
 WINCC = x86_64-w64-mingw32-gcc
 WINTARGET = bzip2_impl.exe
 
-all: $(TARGET)
+all: run-test
 
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
@@ -23,8 +23,8 @@ windows:
 	$(WINCC) $(CFLAGS) -o $(WINTARGET) $(SRC)
 
 run-test: $(TARGET)
-	./$(TARGET) encode test_input.txt encoded.bin
+	./$(TARGET) encode input.txt encoded.bin
 	./$(TARGET) decode encoded.bin decoded.txt
-	cmp test_input.txt decoded.txt && echo "Round-trip OK"
+	cmp input.txt decoded.txt && echo "Round-trip OK"
 
 .PHONY: all clean windows run-test
